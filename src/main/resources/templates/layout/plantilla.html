@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <title>Estética El Coyol</title>
+    <meta charset="UTF-8"/>
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link th:href="@{/webjars/font-awesome/css/all.css}" rel="stylesheet"/>
+    <script th:src="@{/js/rutinas.js}"></script>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <style>
+        body {
+            background-color: white;
+            color: black;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            background-color: cyan;
+            color: white;
+        }
+        .navbar {
+            background-color: cyan;
+        }
+        .nav-link {
+            color: white !important;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .gallery img {
+            margin: 10px;
+            max-width: 300px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <header th:fragment="header" class="header">
+        <nav class="navbar navbar-expand-sm navbar-dark p-0">
+            <div class="container">
+                <a th:href="@{/}" class="navbar-brand">INICIO</a>
+                <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+                    <ul class="navbar-nav">
+                        <li class="nav-item px-2"><a class="nav-link" th:href="@{/servicio/listado}">SERVICIOS</a></li>
+                        <li class="nav-item px-2"><a class="nav-link" th:href="@{/producto/listado}">OFERTAS</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle"
+                            data-bs-toggle="dropdown"
+                            href="#"
+                            role="button"
+                            aria-expanded="false">NOSOTROS</a>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><a class="dropdown-item" th:href="@{/pruebas/listado}">Preguntas Frequentes</a></li>
+                                <li><a class="dropdown-item" th:href="@{/pruebas/listado2}">Ubicación</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item px-2"><a class="nav-link" th:href="@{/usuario/listado}">REGISTRARSE</a></li>
+                        <li class="nav-item px-2"><a class="nav-link" th:href="@{/usuario/listado}">INICIAR SESIÓN</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <section id="main-header" class="py-2 bg-cyan text-white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h1><i class="fa-solid fa-frog"></i> ESTÉTICA EL COYOL</h1>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </header>
+
+    <section id="slider" class="carousel slide" data-bs-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-bs-target="#slider" data-bs-slide-to="0" class="active"></li>
+        <li data-bs-target="#slider" data-bs-slide-to="1"></li>
+        <li data-bs-target="#slider" data-bs-slide-to="2"></li>
+        <li data-bs-target="#slider" data-bs-slide-to="3"></li>
+        <li data-bs-target="#slider" data-bs-slide-to="4"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="https://firebasestorage.googleapis.com/v0/b/proyecto-final-ffd0a.appspot.com/o/Galeria%2Festetica3.jpg?alt=media&token=afba28cc-8267-4fe7-a75f-ac1667c75bf4&_gl=1*1on2pv1*_ga*MTg0ODY4NDQ4My4xNjk4ODAzNjc4*_ga_CW55HF8NVT*MTY5ODgxNTUwNi4yLjEuMTY5ODgxNTY5MS41My4wLjA" class="d-block mx-auto w-50" alt="Foto 1">
+
+        </div>
+        <div class="carousel-item">
+            <img src="https://firebasestorage.googleapis.com/v0/b/proyecto-final-ffd0a.appspot.com/o/Galeria%2Fdise%C3%B1o-de-cejas-con-hilo-cuales-son-las-ventajas_img85637t1.jpg?alt=media&token=3d7bb19a-4c18-4583-bc81-cfcd662ca125&_gl=1*emhfyj*_ga*MTc5OTIxMzQ4Ny4xNjk3OTE1MjA3*_ga_CW55HF8NVT*MTY5ODcyNDQxMS4xMC4xLjE2OTg3MjUzMTIuNjAuMC4w" class="d-block mx-auto w-50" alt="Foto 2">
+        </div>
+        <div class="carousel-item">
+       <img src="https://firebasestorage.googleapis.com/v0/b/proyecto-final-ffd0a.appspot.com/o/Galeria%2Fimages%20(3).jpg?alt=media&token=ea3f6bd1-c0a5-41d7-8302-aac9e5c63921&_gl=1*ptbfth*_ga*MTc5OTIxMzQ4Ny4xNjk3OTE1MjA3*_ga_CW55HF8NVT*MTY5ODcyNzY2OS4xMS4wLjE2OTg3Mjc2NjkuNjAuMC4w" class="d-block mx-auto w-50" alt="Foto 3">
+
+        </div>
+        <div class="carousel-item">
+        <img src="https://firebasestorage.googleapis.com/v0/b/proyecto-final-ffd0a.appspot.com/o/Galeria%2Fretrato-de-una-mujer-hermosa-recibiendo-una-inyeccion-de-botox-en-su-rostro.jpg?alt=media&token=df40c0d7-21d8-4be9-b3c4-c6d588f518de&_gl=1*190wocf*_ga*MTc5OTIxMzQ4Ny4xNjk3OTE1MjA3*_ga_CW55HF8NVT*MTY5ODcyNzY2OS4xMS4xLjE2OTg3Mjc4NjAuNjAuMC4w" class="d-block mx-auto w-50" alt="Foto 4">
+
+        </div>
+        <div class="carousel-item">
+       <img src="https://firebasestorage.googleapis.com/v0/b/proyecto-final-ffd0a.appspot.com/o/Galeria%2Fextension-pesta%C3%B1as.jpg?alt=media&token=dc395a96-a071-4ee5-a884-fa6a1400d09e&_gl=1*10niyb*_ga*MTc5OTIxMzQ4Ny4xNjk3OTE1MjA3*_ga_CW55HF8NVT*MTY5ODcyNzY2OS4xMS4xLjE2OTg3MjgwMjUuNTguMC4w" class="d-block mx-auto w-50" alt="Foto 4">
+
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#slider" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+    </a>
+    <a class="carousel-control-next" href="#slider" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+    </a>
+</section>
+<div class="container text-center mt-3">
+    <a th:href="@{/ruta-de-cita}" class="btn btn-primary">Agendar Cita</a>
+</div>
+
+
+<footer th:fragment="footer" class="bg-info-subtle mt-5 p-2">
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <div class="col text-center">
+                <p>Contacto: Teléfono (506) 2215-2020, Correo Electrónico: esteticaelcoyol@gmail.com</p>
+                <p>&copy; Estética El Coyol - Todos los derechos reservados</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
