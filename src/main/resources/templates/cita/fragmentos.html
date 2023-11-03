@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Estética El Coyol</title>
+    </head>
+    <body>
+        <!-- 1 Sección para crear el botón de agregar... llamará a una ventana modal -->
+        <section th:fragment="botonesAgregar" class="py-4 mb-4 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <button type="button" class="btn btn-primary btn-block" data-bs-toggle="modal" data-bs-target="#agregarCita">
+                            <i class="fas fa-plus"></i>Agregar Cita
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2 Fragmento para agregar cita, es la ventana modal -->
+        <section th:fragment="agregarCita">
+            <div id="agregarCita" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header bg-info text-white">
+                            <h5 class="modal-title">Agendar Cita</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form th:action="@{/cita/guardar}" th:object="${cita}" method="POST" class="was-validated" enctype="multipart/form-data">
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="nombre">Nombre Completo</label>
+                                    <input type="text" class="form-control" name="nombre" required="true" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="correo_electronico">Correo Electrónico</label>
+                                    <input type="text" class="form-control" name="correo_electronico" required="true" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="numero_telefono">Número de Teléfono</label>
+                                    <input type="text" class="form-control" name="numero_telefono" required="true" />
+                                </div>
+                                <div class="mb-3">
+                                    <label for="id_servicio">Servicio</label>
+                                    <select id="id_servicio" name="id_servicio" class="form-control" required="true">
+                                        <option value="">Selecciona un servicio</option>
+                                        <option value="Masajes Terapéuticos">Masajes Terapéuticos</option>
+                                        <option value="Botox">Botox</option>
+                                        <option value="Diseño de Cejas">Diseño de Cejas</option>
+                                        <option value="Pestañas">Pestañas</option>
+                                        <option value="Faciales">Faciales</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fechaHoraPicker">Fecha y Hora:</label>
+                                    <input type="text" id="fechaHoraPicker" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" type="submit">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3 Sección principal para mostrar la información de la entidad cita -->
+        <section th:fragment="listadoCitas" id="citas">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Listado de Citas</h4>
+                            </div>
+                            <div th:if="${citas != null and !citas.empty}">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th></th>
+                                            <th>Nombre del Cliente</th>
+                                            <th>Servicio</th>
+                                            <th>Correo Electrónico</th>
+                                            <th>Número de Teléfono</th>
+                                            <th>Fecha y Hora</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="cita, contador : ${citas}">
+                                            <td>[[${contador.count}]]</td>
+                                            <td>[[${cita.nombre}]]</td>
+                                            <td>[[${cita.id_servicio}]]</td>
+                                            <td>[[${cita.correo_electronico}]]</td>
+                                            <td>[[${cita.numero_telefono}]]</td>
+                                            <td>[[${cita.fecha_hora}]]</td>
+
+                                            <td>
+                                                <a th:href="@{/cita/eliminar/}+${cita.idCita}" class="btn btn-danger">
+                                                    <i class="fas fa-trash"></i> Eliminar
+                                                </a>
+                                                <a th:href="@{/cita/modificar/}+${cita.idCita}" class="btn btn-success">
+                                                    <i class="fas fa-pencil"></i> Actualizar
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="text-center p-2" th:if="${citas == null or citas.empty}">
+                                <span>Lista Vacia</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-center bg-info text-white mb-3">
+                            <div class="card-body">
+                                <h3>Total de Citas</h3>
+                                <h4 class="fs-2"><i class="fas fa-calendar"></i> [[${totalCitas}]]</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4 Fragmento que se utiliza en la página modifca.html -->
+        <section th:fragment="editarCita">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <form method="POST" th:action="@{/cita/guardar}" th:object="${cita}" class="was-validated" enctype="multipart/form-data">
+                        <input type="hidden" name="idCita" th:field="*{idCita}" />
+                        <section th:replace="~{cita/fragmentos :: botonesEditar}" />
+                        <div id="details">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4>[[#{accion.actualizar}]]</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="mb-3">
+                                                    <label for="nombre">[[#{cita.nombre}]]</label>
+                                                    <input type="text" class="form-control" name="nombre" th:field="*{nombre}" required="true">
+                                                </div>
+                                               <div class="mb-3">
+                                                    <label for="id_servicio">[[#{cita.id_servicio}]]</label>
+                                                    <input type="text" class="form-control" name="id_servicio" th:field="*{id_servicio}" required="true">
+                                                </div>
+                                                      <div class="mb-3">
+                                                    <label for="correo_electronico">[[#{cita.correo_electronico}]]</label>
+                                                    <input type="text" class="form-control" name="correo_electronico" th:field="*{correo_electronico}" required="true">
+                                                </div>
+                                            
+                                                <div class="mb-3">
+                                                    <label for="numero_telefono">[[#{cita.numero_telefono}]]</label>
+                                                    <input type="date" class="form-control" name="numero_telefono" th:field="*{numero_telefono}" required="true">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="fecha_hora">[[#{cita.fecha_hora}]]</label>
+                                                    <input type="datetime-local" class="form-control" name="fecha_hora" th:field="*{fecha_hora}" required="true" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5 Fragmento que se utiliza en el fragmento anterior -->
+        <section th:fragment="botonesEditar">
+            <div class="container py-4 mb-4 bg-light">
+                <div class="row">
+                    <div class="col-md-4 d-grid">
+                        <a th:href="@{/cita/listado}" class="btn btn-primary">
+                            <i class="fas fa-arrow-left"></i> [[#{accion.regresar}]]
+                        </a>
+                    </div>
+                    <div class="col-md-4 d-grid">
+                        <a th:href="@{/cita/eliminar/}+${cita.idCita}" class="btn btn-danger">
+                            <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
+                        </a>
+                    </div>
+                    <div class="col-md-4 d-grid">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-check"></i> [[#{accion.guardar}]]
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#fechaHoraPicker').datetimepicker({
+                    format: 'YYYY-MM-DD HH:mm:ss',
+                });
+            });
+        </script>
+    </body>
+</html>

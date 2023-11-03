@@ -49,7 +49,9 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
                     <ul class="navbar-nav">
                         <li class="nav-item px-2"><a class="nav-link" th:href="@{/servicio/listado}">SERVICIOS</a></li>
-                        <li class="nav-item px-2"><a class="nav-link" th:href="@{/producto/listado}">OFERTAS</a></li>
+                        <li class="nav-item px-2"><a class="nav-link" th:href="@{/oferta/listado}">OFERTAS</a></li>
+                        <li class="nav-item px-2"><a class="nav-link" th:href="@{/cita/listado}">AGENDAR CITA</a></li>
+                      
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle"
                             data-bs-toggle="dropdown"
@@ -57,8 +59,8 @@
                             role="button"
                             aria-expanded="false">NOSOTROS</a>
                             <ul class="dropdown-menu dropdown-menu-dark">
-                                <li><a class="dropdown-item" th:href="@{/pruebas/listado}">Preguntas Frequentes</a></li>
-                                <li><a class="dropdown-item" th:href="@{/pruebas/listado2}">Ubicación</a></li>
+                                <li><a class="dropdown-item" th:href="@{/Nosotros/listado}">Preguntas Frequentes</a></li>
+                                <li><a class="dropdown-item" th:href="@{/Nosotros/listado2}">Ubicación</a></li>
                             </ul>
                         </li>
                         <li class="nav-item px-2"><a class="nav-link" th:href="@{/usuario/listado}">REGISTRARSE</a></li>
@@ -117,7 +119,7 @@
     </a>
 </section>
 <div class="container text-center mt-3">
-    <a th:href="@{/ruta-de-cita}" class="btn btn-primary">Agendar Cita</a>
+    <a th:href="@{/cita/listado}" class="btn btn-primary">Agendar Cita</a>
 </div>
 
 
