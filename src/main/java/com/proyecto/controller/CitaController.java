@@ -13,7 +13,6 @@ import com.proyecto.service.CitaService;
 import com.proyecto.service.serviceimpl.FirebaseStorageServiceImpl;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
 @Controller
 @RequestMapping("/cita")
 public class CitaController {
@@ -38,8 +37,8 @@ public class CitaController {
     private FirebaseStorageServiceImpl firebaseStorageService;
     
     @PostMapping("/guardar")
-    public String citaGuardar(Cita cita){
-            
+    public String citaGuardar(Cita cita) {
+        citaService.save(cita);
         return "redirect:/cita/listado";
     }
 

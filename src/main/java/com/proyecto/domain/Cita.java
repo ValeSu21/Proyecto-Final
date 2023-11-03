@@ -11,7 +11,6 @@ package com.proyecto.domain;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 import lombok.Data;
 
 @Data
