@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Estética El Coyol</title>
+        <style>
+            body {
+                background-color: #f8f9fa;
+            }
+
+            .container {
+                margin-top: 20px;
+            }
+
+            .list-group-item {
+                margin-bottom: 20px;
+                background-color: #ffffff;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                border: 1px solid rgba(0, 0, 0, 0.125);
+                border-radius: 0.25rem;
+                padding: 20px;
+                text-align: center;
+            }
+
+            .card {
+                background-color: #17a2b8;
+                color: #ffffff;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Encabezado -->
+        <header class="text-center py-4">
+            <h1 aria-label="Nuestros Productos" role="heading">Nuestros Productos</h1>
+        </header>
+
+        <!-- Sección principal para mostrar la información de la entidad producto -->
+        <section th:fragment="listadoProductos" id="productos">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div th:if="${productos != null and not #lists.isEmpty(productos)}">
+                            <div class="row">
+                                <div th:each="producto, contador : ${productos}" class="col-md-4">
+                                    <div class="list-group-item">
+                                        <!-- Agregar la imagen arriba -->
+                                        <img th:src="@{${producto.rutaImagen}}" alt="Imagen del Producto" class="img-top" height="100"/>
+
+                                        <h5>[[${contador.count}]]. [[${producto.descripcion}]]</h5>
+                                        <p>Detalle: [[${producto.detalle}]]</p>
+                                        <p>Precio: ¢[[${producto.precio}]]</p>
+                                        <p>Existencias: [[${producto.existencias}]]</p>
+                                        <p>Activo: [[${producto.activo} ? 'Sí' : 'No']]</p>
+
+                                        <div>
+                                            <!-- Agrega aquí cualquier enlace o botón adicional que necesites -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center p-2" th:if="${productos == null or #lists.isEmpty(productos)}">
+                            <span>Lista Vacía</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-center mb-3">
+                            <!-- Contenido de la tarjeta -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer th:fragment="footer" class="bg-info-subtle mt-5 p-2">
+            <div class="container">
+                <div class="d-flex justify-content-center">
+                    <div class="col text-center">
+                        <p>Contacto: Teléfono (506) 2215-2020, Correo Electrónico: esteticaelcoyol@gmail.com</p>
+                        <p>&copy; Estética El Coyol - Todos los derechos reservados</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

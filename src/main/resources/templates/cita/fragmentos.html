@@ -42,7 +42,7 @@
                             <div class="modal-body">
                                 <div class="mb-3">
                                     <label for="nombre">Nombre Completo</label>
-                                    <input type="text" class="form-control" name="nombre" required="true" />
+                                    <input type="text" class="form-control" name="nombre_usuario" required="true" />
                                 </div>
                                 <div class="mb-3">
                                     <label for="correo_electronico">Correo Electrónico</label>
@@ -53,16 +53,18 @@
                                     <input type="text" class="form-control" name="numero_telefono" required="true" />
                                 </div>
                                 <div class="mb-3">
-                                    <label for="id_servicio">Servicio</label>
+                                    <label for="descripcion">cita.servicio</label>
                                     <select id="id_servicio" name="id_servicio" class="form-control" required="true">
-                                        <option value="">Selecciona un servicio</option>
-                                        <option value="Masajes Terapéuticos">Masajes Terapéuticos</option>
-                                        <option value="Botox">Botox</option>
-                                        <option value="Diseño de Cejas">Diseño de Cejas</option>
-                                        <option value="Pestañas">Pestañas</option>
-                                        <option value="Faciales">Faciales</option>
+                                                  <option th:each="c : ${servicios}"
+                                                th:value="${c.idServicio}"
+                                                th:text="${c.descripcion}">                             
+                                        </option>
                                     </select>
-                                    <input type="hidden" id="nombre_servicio" name="nombre_servicio" />
+  
+                                </div>
+                                <div class="mb-3">
+                                    <label for="descripcion">Descripcion</label>
+                                    <input type="text" class="form-control" name="descripcion" required="true" />
                                 </div>
                                 <div class="mb-3">
                                     <label for="fecha_hora">Fecha y hora</label>
@@ -103,11 +105,12 @@
                                     <tbody>
                                         <tr th:each="cita, contador : ${citas}">
                                             <td>[[${contador.count}]]</td>
-                                            <td>[[${cita.nombre}]]</td>
-                                            <td>[[${cita.id_servicio}]]</td>
+                                            <td>[[${cita.nombre_usuario}]]</td>
+                                            <th>[[#{producto.descripcion}]]</th>
                                             <td>[[${cita.correo_electronico}]]</td>
                                             <td>[[${cita.numero_telefono}]]</td>
                                             <td>[[${cita.fecha_hora}]]</td>
+                                            <td>[[${cita.servicio.descripcion}]]</td>
                                             <td th:text="${cita.activo} ? 'Activa' : 'Inactiva'" />
                                             <td>
                                                 <a th:href="@{/cita/eliminar/}+${cita.idCita}"
@@ -162,22 +165,18 @@
                                             </div>
                                               <div class="card-body">
                                                 <div class="mb-3">
-                                                    <label for="nombre">[[#{cita.nombre}]]</label>
-                                                    <input type="text" class="form-control" name="nombre" th:field="*{nombre}" required="true">
+                                                    <label for="nombre">[[#{cita.nombre_usuario}]]</label>
+                                                    <input type="text" class="form-control" name="nombre_usuario" th:field="*{nombre_usuario}" required="true">
                                                 </div>
-                                                  <div class="mb-3">
-                                                      <label for="id_servicio">[[#{cita.id_servicio}]]</label>
-                                                      <select class="form-control" name="id_servicio" th:field="*{id_servicio}" required="true">
-                                                          <option value="">Selecciona un servicio</option>
-                                                          <option value="Masajes Terapéuticos">Masajes Terapéuticos</option>
-                                                          <option value="Botox">Botox</option>
-                                                          <option value="Diseño de Cejas">Diseño de Cejas</option>
-                                                          <option value="Pestañas">Pestañas</option>
-                                                          <option value="Faciales">Faciales</option>
+                                                  <div>
+                                                      <label for="descripcion">[[#{cita.servicio}]]</label>
+                                                      <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="idServicio">
+                                                          <option th:each="c : ${servicios}"
+                                                                  th:value="${c.idServicio}"
+                                                                  th:text="${c.descripcion}">
+                                                          </option>
                                                       </select>
-                                                      <input type="hidden" id="nombre_servicio" name="nombre_servicio" />
                                                   </div>
-
                                                       <div class="mb-3">
                                                     <label for="correo_electronico">[[#{cita.correo_electronico}]]</label>
                                                     <input type="text" class="form-control" name="correo_electronico" th:field="*{correo_electronico}" required="true">

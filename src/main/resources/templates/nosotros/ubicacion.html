@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+        <head th:replace="~{layout/plantilla :: head}">
+        <title>Ubicación | Estética el Coyol</title>
+        <meta charset="UTF-8"/>
+    </head>
+<body style="background-color: white;">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-cyan">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/}">Inicio</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/Nosotros/preguntas}">Preguntas Frecuentes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/cita/listado}">Agendar Cita</a>
+                    </li>
+                    <!-- Agrega más enlaces según tus necesidades -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="nosotros" class="my-5">
+        <div class="container">
+            <h2 class="text-center">Nuestra Ubicación</h2>
+
+            <!-- Mapa de Google utilizando iframe -->
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7909450.755073182!2d-95.50349777228632!3d14.539904845440557!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa0f86ef3ca4d21%3A0x193dc5de925ff4e3!2sCentro%20de%20Est%C3%A9tica%20El%20Coyol!5e0!3m2!1ses!2scr!4v1700686611307!5m2!1ses!2scr" width="1200" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+          
+        </div>
+    </section>
+
+    <!-- Detalles de la Ubicación -->
+    <footer style="background-color: cyan; color: black; text-align: center; padding: 10px;">
+                 <p>Dirección: del Pali 50m oeste, Dentro de la Clínica All Dent, Provincia de Alajuela</p>
+                <p>Teléfono: +506 2215-2020</p>
+                <p>Correo Electrónico: esteticaelcoyol@gmail.com</p>
+    </footer>
+
+</body>
+</html>
+

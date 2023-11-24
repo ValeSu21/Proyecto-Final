@@ -27,36 +27,6 @@
                 background-color: #17a2b8; 
                 color: #ffffff;
             }
-            
-            .list-group-item img {
-                margin-bottom: 10px; /* Espacio entre la imagen y el texto */
-            }
-            
-            .list-group-item p {
-                margin-bottom: 15px; /* Espacio entre el texto y el botón */
-            }
-            
-.list-group-item {
-    margin-bottom: 20px;
-    background-color: #ffffff; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    border-radius: 0.25rem;
-    padding: 20px;
-    text-align: center; /* Centrar el contenido */
-    position: relative; /* Posición relativa para alinear el contenido secundario */
-}
-
-.list-group-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8));
-    z-index: -1;
-}
         </style>
     </head>
     <body>
@@ -67,13 +37,12 @@
 
         <!-- Sección principal para mostrar la información de la entidad servicio -->
         <section th:fragment="listadoServicios" id="servicios">
-            <div class="container">
-                <div class="row">
+                <div class="row py-4">
                     <div class="col-md-9">
                         <div th:if="${servicios != null and not #lists.isEmpty(servicios)}">
                             <div class="row">
                                 <div th:each="servicio, contador : ${servicios}" class="col-md-4">
-                                    <div class="list-group-item position-relative"> <!-- Agregar position-relative -->
+                                    <div class="list-group-item">
                                         <!-- Agregar la imagen arriba -->
                                         <img th:src="@{${servicio.rutaImagen}}" alt="Imagen del Servicio" class="img-top" height="100"/>
                                         
@@ -90,15 +59,13 @@
                             </div>
                         </div>
                         <div class="text-center p-2" th:if="${servicios == null or #lists.isEmpty(servicios)}">
-                            <span>Lista Vacía</span>
-                        </div>
+                                              </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="card text-center mb-3">
-                        </div>
-                    </div>
+ 
                 </div>
             </div>
         </section>
     </body>
 </html>
+
+

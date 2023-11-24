@@ -24,7 +24,7 @@ public class OfertaController {
 
     @GetMapping("/listado")
     public String listado(Model model) {
-        var ofertas = ofertaService.getOfertas(false);
+        var ofertas = ofertaService.getOfertas(true);
         model.addAttribute("ofertas", ofertas);
         model.addAttribute("totalOfertas", ofertas.size());
 

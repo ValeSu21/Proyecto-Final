@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.proyecto.service.CitaService;
+import com.proyecto.service.ServicioService;
 import com.proyecto.service.serviceimpl.FirebaseStorageServiceImpl;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -18,12 +19,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class CitaController {
     @Autowired
     private CitaService citaService;
+    @Autowired
+    private ServicioService servicioService;
+
 
     @GetMapping("/listado")
     public String listado(Model model) {
         var citas = citaService.getCitas(false);
         model.addAttribute("citas", citas);
         model.addAttribute("totalCitas", citas.size());
+        
+        var servicios = servicioService.getServicios(false);
+        model.addAttribute("servicios", servicios);
 
         return "cita/listado";
     }
