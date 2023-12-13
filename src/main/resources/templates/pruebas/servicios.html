@@ -4,68 +4,34 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <head th:replace="~{layout/plantilla :: head}">
         <title>Estética El Coyol</title>
-        <style>
-            body {
-                background-color: #f8f9fa; /* Cambiar el color de fondo según tus preferencias */
-            }
-
-            .container {
-                margin-top: 20px;
-            }
-
-            .list-group-item {
-                margin-bottom: 20px;
-                background-color: #ffffff; 
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                border: 1px solid rgba(0, 0, 0, 0.125);
-                border-radius: 0.25rem;
-                padding: 20px;
-                text-align: center; /* Centrar el contenido */
-            }
-
-            .card {
-                background-color: #17a2b8; 
-                color: #ffffff;
-            }
-        </style>
     </head>
     <body>
-        <!-- Encabezado -->
-        <header class="text-center py-4">
-            <h1>Nuestros Servicios</h1>
-        </header>
-
         <!-- Sección principal para mostrar la información de la entidad servicio -->
-        <section th:fragment="listadoServicios" id="servicios">
-                <div class="row py-4">
-                    <div class="col-md-9">
-                        <div th:if="${servicios != null and not #lists.isEmpty(servicios)}">
-                            <div class="row">
-                                <div th:each="servicio, contador : ${servicios}" class="col-md-4">
-                                    <div class="list-group-item">
-                                        <!-- Agregar la imagen arriba -->
-                                        <img th:src="@{${servicio.rutaImagen}}" alt="Imagen del Servicio" class="img-top" height="100"/>
-                                        
-                                        <h5>[[${contador.count}]]. [[${servicio.nombre}]]</h5>
-                                        <p>Precio: ¢[[${servicio.precio}]]</p>
-                                        <p>Descripción: [[${servicio.descripcion}]]</p>
-                                        <p>Estado: [[${servicio.activo} ? 'Activa' : 'Inactiva']]</p>
-                                        
-                                        <div>
-                                            <a th:href="@{/cita/listado}" class="btn btn-primary">Agendar Cita</a>
-                                        </div>
-                                    </div>
+        <section th:fragment="listadoServicios" id="servicios" class="container py-4">
+            <div class="row row-cols-4">
+                
+                        <div th:each="servicio, contador : ${servicios}" class="card p-5">
+                            <div class="list-group-item">
+                                <!-- Agregar la imagen arriba -->
+                                <figure>
+                                <img th:src="@{${servicio.rutaImagen}}" alt="..." class="card-img-top" height="200"/>
+                                </figure>
+                                <h5>[[${contador.count}]]. [[${servicio.nombre}]]</h5>
+                                <p>Descripción: [[${servicio.descripcion}]]</p>
+                                <p>Precio: ¢[[${servicio.precio}]]</p>
+                                <p>Estado: [[${servicio.activo} ? 'Activa' : 'Inactiva']]</p>
+                                
+                                <div>
+                                    <a th:href="@{/cita/listado}" class="btn btn-primary">Agendar Cita</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="text-center p-2" th:if="${servicios == null or #lists.isEmpty(servicios)}">
-                                              </div>
-                    </div>
- 
+               
                 </div>
+            </div>
+            <div class="text-center p-2" th:if="${servicios == null or servicios.empty}">
+                <span>[[#{Lista Vacia}]]</span>
             </div>
         </section>
     </body>
 </html>
-
-

@@ -65,11 +65,11 @@
                                 <!-- Agregar campos de fecha de inicio y fecha de fin -->
                                 <div class="mb-3">
                                     <label for="fecha_inicio">Fecha de Inicio</label>
-                                    <input type="text" class="form-control datepicker" name="fecha_inicio" required="true"/>
+                                    <input type="date" class="form-control" name="fecha_inicio" required="true"/>
                                 </div>
                                 <div class="mb-3">
                                     <label for="fecha_fin">Fecha de Fin</label>
-                                    <input type="text" class="form-control datepicker" name="fecha_fin" required="true"/>
+                                    <input type="date" class="form-control" name="fecha_fin" required="true"/>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -106,20 +106,20 @@
                                     </thead>
                                     <tbody>
                                         <tr th:each="oferta, contador : ${ofertas}">
+                                            <!-- Otros campos... -->
                                             <td>[[${contador.count}]]</td>
                                             <td>[[${oferta.nombre}]]</td>
                                             <td>[[${oferta.descuento}]]</td>
                                             <td>[[${oferta.descripcion}]]</td>
-                                            <td>[[${oferta.fecha_inicio}]]</td>
-                                            <td>[[${oferta.fecha_fin}]]</td>
+                                            <!-- Formatear las fechas -->
+                                            <td th:text="${#dates.format(oferta.fecha_inicio, 'yyyy-MM-dd')}"></td>
+                                            <td th:text="${#dates.format(oferta.fecha_fin, 'yyyy-MM-dd')}"></td>
                                             <td th:text="${oferta.activo} ? 'Activa' : 'Inactiva'" />
                                             <td>
-                                                <a th:href="@{/oferta/eliminar/}+${oferta.idOferta}"
-                                                   class="btn btn-danger">
+                                                <a th:href="@{/oferta/eliminar/}+${oferta.idOferta}" class="btn btn-danger">
                                                     <i class="fas fa-trash"></i> Eliminar
                                                 </a>
-                                                <a th:href="@{/oferta/modificar/}+${oferta.idOferta}"
-                                                   class="btn btn-success">
+                                                <a th:href="@{/oferta/modificar/}+${oferta.idOferta}" class="btn btn-success">
                                                     <i class="fas fa-pencil"></i> Actualizar
                                                 </a>
                                             </td>
@@ -228,8 +228,7 @@
                         </a>
                     </div>
                     <div class="col-md-4 d-grid">                                
-                        <a th:href="@{/oferta/eliminar/}+${oferta.idOferta}"
-                           class="btn btn-danger">
+                        <a th:href="@{/oferta/eliminar/}+${oferta.idOferta}" class="btn btn-danger">
                             <i class="fas fa-trash"></i> [[#{accion.eliminar}]]
                         </a>
                     </div>

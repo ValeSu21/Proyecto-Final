@@ -4,16 +4,8 @@
  */
 package com.proyecto.service;
 
-import java.util.List;
+import org.springframework.security.core.userdetails.*;
 
-import com.proyecto.domain.Cita;
-
-public interface CitaService {
-    List<Cita> getCitas(boolean activo);
-
-    Cita getCita(Cita cita);
-
-    void save(Cita cita);
-
-    void delete(Cita cita);
+public interface UsuarioDetailsService {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 }

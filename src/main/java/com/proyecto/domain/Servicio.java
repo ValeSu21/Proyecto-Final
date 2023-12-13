@@ -32,8 +32,7 @@ public class Servicio implements Serializable{
         this.descripcion = descripcion;
         this.activo = activo;
     }
- 
-    
+
 }
 
     

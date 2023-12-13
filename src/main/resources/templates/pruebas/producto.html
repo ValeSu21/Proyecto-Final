@@ -50,8 +50,8 @@
         </nav>
         <section id="main-header" class="py-2 bg-cyan text-white">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
+                <div class="row row-cols-4">
+                    <div class="col-md-4">
                         <h1><i class="fa-solid fa-frog"></i> ESTÉTICA EL COYOL</h1>
                     </div>
                 </div>
@@ -87,21 +87,21 @@
     </head>
     <body>
         <!-- Encabezado -->
-        <header class="text-center py-4">
+        <header class="card p-5">
            <h1 aria-label="Nuestros Productos" role="heading">Nuestros Productos</h1>
         </header>
 
         <!-- Sección principal para mostrar la información de la entidad producto -->
         <section th:fragment="listadoProductos" id="productos">
             <div class="container">
-                <div class="row">
+                <div class="row row-cols-4">
                     <div class="col-md-9">
                         <div th:if="${productos != null and not #lists.isEmpty(productos)}">
                             <div class="row">
                                 <div th:each="producto, contador : ${productos}" class="col-md-4">
                                     <div class="list-group-item">
                                         <!-- Agregar la imagen arriba -->
-                                        <img th:src="@{${producto.rutaImagen}}" alt="Imagen del Producto" class="img-top" height="100"/>
+                                        <img th:src="@{${producto.rutaImagen}}" alt="Imagen del Producto" class="img-top" height="200"/>
 
                                         <h5>[[${contador.count}]]. [[${producto.descripcion}]]</h5>
                                         <p>Detalle: [[${producto.detalle}]]</p>
@@ -120,8 +120,8 @@
                             <span>Lista Vacía</span>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="card text-center mb-3">
+                    <div class="col-md-4">
+                        <div class="card text-center mb-4">
                             <!-- Contenido de la tarjeta -->
                         </div>
                     </div>

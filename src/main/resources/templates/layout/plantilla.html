@@ -48,9 +48,9 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
                     <ul class="navbar-nav">
-                        <li class="nav-item px-2"><a class="nav-link" th:href="@{/servicio/listado}">SERVICIOS</a></li>
-                        <li class="nav-item px-2"><a class="nav-link" th:href="@{/oferta/listado}">OFERTAS</a></li>
-                        <li class="nav-item px-2"><a class="nav-link" th:href="@{/producto/listado}">PRODUCTOS</a></li>
+                       <li class="nav-item px-2" sec:authorize="hasRole('ROLE_ADMIN')"><a class="nav-link" th:href="@{/servicio/listado}">SERVICIOS</a></li>
+                        <li class="nav-item px-2"sec:authorize="hasRole('ROLE_ADMIN')"><a class="nav-link" th:href="@{/oferta/listado}">OFERTAS</a></li>
+                        <li class="nav-item px-2"sec:authorize="hasRole('ROLE_ADMIN')"><a class="nav-link" th:href="@{/producto/listado}">PRODUCTOS</a></li>
                         <li class="nav-item px-2"><a class="nav-link" th:href="@{/cita/listado}">AGENDAR CITA</a></li>
                       
                         <li class="nav-item dropdown">
@@ -77,8 +77,28 @@
                                 <li><a class="dropdown-item" th:href="@{/pruebas/producto}">Productos</a></li>
                             </ul>
                         </li>
-                        
-                        <li class="nav-item px-2"><a class="nav-link" th:href="@{/usuario/listado}">INICIAR SESIÓN</a></li>
+
+                        <ul class="navbar-nav" sec:authorize='!isAuthenticated()'>
+                            <li class="nav-item px-2"><a class="nav-link" th:href="@{/login}">
+                                    <i class='fas fa-sign-in-alt'></i>
+                                </a>
+                            </li>       
+                        </ul>
+                        <ul class="navbar-nav" sec:authorize='isAuthenticated()'>
+                            <li class="nav-item text-white my-auto">
+                                <img th:src='@{${session.usuarioImagen}}' height='40' class='rounded-circle'/>
+                                <span sec:authentication='name'>Jhon</span>
+                            </li>  
+                            <li class="nav-item my-auto">
+                                <form method='post'
+                                      th:action='@{/logout}'> 
+                                    <button class='btn btn-dark'>
+                                        <i class='fas fa-sign-out-alt'></i>
+                                    </button>
+                                </form>      
+                            </li>     
+
+                        </ul>
                     </ul>
                 </div>
             </div>
@@ -117,7 +137,7 @@
 
         </div>
         <div class="carousel-item">
-        <img src="https://firebasestorage.googleapis.com/v0/b/proyecto-final-ffd0a.appspot.com/o/Galeria%2Fretrato-de-una-mujer-hermosa-recibiendo-una-inyeccion-de-botox-en-su-rostro.jpg?alt=media&token=df40c0d7-21d8-4be9-b3c4-c6d588f518de&_gl=1*190wocf*_ga*MTc5OTIxMzQ4Ny4xNjk3OTE1MjA3*_ga_CW55HF8NVT*MTY5ODcyNzY2OS4xMS4xLjE2OTg3Mjc4NjAuNjAuMC4w" class="d-block mx-auto w-50" alt="Foto 4">
+        <img src="https://firebasestorage.googleapis.com/v0/b/proyecto-final-ffd0a.appspot.com/o/Galeria%2Fretrato-de-una-mujer-hermosa-recibiendo-una-inyeccion-de-botox-en-su-rostro.jpg?alt=media&token=df40c0d7-21d8-4be9-b3c4-c6d588f518de*190wocf*_ga*MTc5OTIxMzQ4Ny4xNjk3OTE1MjA3*_ga_CW55HF8NVT*MTY5ODcyNzY2OS4xMS4xLjE2OTg3Mjc4NjAuNjAuMC4w" class="d-block mx-auto w-50" alt="Foto 4">
 
         </div>
         <div class="carousel-item">

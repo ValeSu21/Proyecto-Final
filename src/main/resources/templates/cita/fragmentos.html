@@ -170,13 +170,14 @@
                                                 </div>
                                                   <div>
                                                       <label for="descripcion">[[#{cita.servicio}]]</label>
-                                                      <select class="form-select" id="floatingSelect" aria-label="Floating label select example" name="idServicio">
+                                                      <select class="form-select" id="id_servicio" name="id_servicio" required="true">
                                                           <option th:each="c : ${servicios}"
                                                                   th:value="${c.idServicio}"
                                                                   th:text="${c.descripcion}">
                                                           </option>
                                                       </select>
                                                   </div>
+
                                                       <div class="mb-3">
                                                     <label for="correo_electronico">[[#{cita.correo_electronico}]]</label>
                                                     <input type="text" class="form-control" name="correo_electronico" th:field="*{correo_electronico}" required="true">
@@ -187,11 +188,10 @@
                                                       <input type="text" class="form-control" name="numero_telefono" th:field="*{numero_telefono}" required="true">
                                                   </div>
 
-                                                <div class="mb-3">
-                                                    <label for="fecha_hora">[[#{cita.fecha_hora}]]</label>
-                                                    <input type="datetime-local" class="form-control" name="fecha_hora" th:field="*{fecha_hora}" required="true" />
-                                                </div>
-												
+                                                  <div class="mb-3">
+                                                      <label for="fecha_hora">[[#{cita.fecha_hora}]]</label>
+                                                      <input type="datetime-local" class="form-control" name="fecha_hora" id="fechaHoraPicker" th:field="*{fecha_hora}" required="true" />
+                                                  </div>						
                                                 <div class="mb-3">
                                                     <label for="activo">[[#{cita.activo}]]</label>
                                                     <input class="form-check-input" 

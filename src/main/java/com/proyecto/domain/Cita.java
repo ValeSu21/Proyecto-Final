@@ -23,4 +23,6 @@ public class Cita implements Serializable{
     private String numero_telefono;
     private LocalDateTime fecha_hora;
     private Boolean activo;
+    
+    
 }
