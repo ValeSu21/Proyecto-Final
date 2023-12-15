@@ -27,7 +27,7 @@ public class Producto implements Serializable{
     private Double precio;
     private Double existencias;
     private String rutaImagen;
-    private Boolean activo;
+    private boolean activo;
 
     public Producto() {
     }

@@ -109,6 +109,9 @@
                                         <p>Activa: [[${oferta.activo} ? 'Sí' : 'No']]</p>
                                         <p>Fecha de Inicio: [[${oferta.fecha_inicio}]]</p>
                                         <p>Fecha de Fin: [[${oferta.fecha_fin}]]</p>
+                                        <div>
+                                            <a th:href="@{/cita/listado}" class="btn btn-primary">Agendar Cita</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -124,7 +127,9 @@
                     </div>
                 </div>
             </div>
+            
         </section>
+        
         <footer th:fragment="footer" class="bg-info-subtle mt-5 p-2">
     <div class="container">
         <div class="d-flex justify-content-center">
@@ -136,4 +141,6 @@
     </div>
 </footer>
     </body>
+    
+    
 </html>

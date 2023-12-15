@@ -12,6 +12,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 @Entity
@@ -28,9 +29,11 @@ public class Oferta implements Serializable{
     private String nombre;
     private Double descuento;
     private Boolean activo;
+     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fecha_inicio;
-    private Date fecha_fin;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date fecha_fin;
     public Oferta() {
     }
 

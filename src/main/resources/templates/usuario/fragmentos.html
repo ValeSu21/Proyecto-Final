@@ -3,30 +3,29 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <head th:replace="~{layout/plantilla :: head}">
-        
-        <title>Estética El Coyol</title>
+        <title>Estética el Coyol</title>
     </head>
     <body>
-        <!-- 1 Sección para crear el botón de agregar... llamará a una ventana modal-->
+        <!-- 1 Sección para crear el boton de agregar... llamará a una ventana modal-->
         <section th:fragment="botonesAgregar" class="py-4 mb-4 bg-light">
-            <div class="container">
-                <div class row>
+            <div class="container" sec:authorize="hasRole('ROLE_ADMIN')">
+                <div class="row">
                     <div class="col-md-3">   
                         <button 
                             type="button" 
                             class="btn btn-primary btn-block" 
                             data-bs-toggle="modal" 
-                            data-bs-target="#agregarServicio">
-                            <i class="fas fa-plus"></i>Agregar Servicio
+                            data-bs-target="#agregarUsuario">
+                            <i class="fas fa-plus"></i> Agregar Usuario
                         </button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 2 Fragmento para agregar servicio, es la ventana modal -->
-        <section th:fragment="agregarServicio">
-            <div id="agregarServicio" 
+        <!-- 2 Fragmento para agregar usuario, es la ventana modal -->
+        <section th:fragment="agregarUsuario">
+            <div id="agregarUsuario" 
                  class="modal fade" 
                  tabindex="-1" 
                  aria-labelledby="exampleModalLabel" 
@@ -34,32 +33,44 @@
                 <div class="modal-dialog modal-md">
                     <div class="modal-content">
                         <div class="modal-header bg-info text-white">
-                            <h5 class="modal-title">Agregar Servicio</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <h5 class="modal-title">Agregar Usuario</h5>
+                            <button type="button" 
+                                    class="btn-close" 
+                                    data-bs-dismiss="modal" 
+                                    aria-label="Close"></button>
                         </div> 
-                        <form th:action="@{/servicio/guardar}" th:object="${servicio}"
-                              method="POST" class="was-validated" enctype="multipart/form-data">
+                        <form th:action="@{/usuario/guardar}" th:object="${usuario}"
+                              method="POST" class="was-validated"
+                              enctype="multipart/form-data">
                             <div class="modal-body">
-                                <!-- Campos para agregar servicio -->
                                 <div class="mb-3">
-                                    <label for="nombre">Nombre del Servicio</label>
+                                    <label for="nombre">Nombre</label>
                                     <input type="text" class="form-control" name="nombre" required="true"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="precio">Precio</label>
-                                    <input type="number" class="form-control" name="precio" step="0.01" required="true"/>
+                                    <label for="apellidos">Apellidos</label>
+                                    <input type="text" class="form-control" name="apellidos" required="true"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="descripcion">Descripcion</label>
-                                    <input type="text" class="form-control" name="descripcion" required="true"/>
+                                    <label for="username">Username</label>
+                                    <input type="text" class="form-control" name="username" required="true"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="activo">Activo</label>
-                                    <input class="form-check-input" type="checkbox" name="activo" id="activo"/>
+                                    <label for="password">Contraseña</label>
+                                    <input type="password" class="form-control" name="password" required="true"/>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="imagen">Ruta de Imagen</label>
-                                    <input class="form-control" type="file" name="imagenFile" onchange="readURL(this);"/>
+                                    <label for="email">Correo</label>
+                                    <input type="email" class="form-control" name="correo" required="true"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="telefono">Telefono</label>
+                                    <input type="tel" class="form-control" name="telefono"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="imagen">Imagen</label>
+                                    <input class="form-control" type="file" name="imagenFile"
+                                           onchange="readURL(this);"/>
                                     <img id="blah" src="#" alt="your image" height="200"/>
                                 </div>
                             </div>
@@ -72,78 +83,68 @@
             </div>
         </section>
 
-        <!-- 3 Sección principal para mostrar la información de la entidad servicio -->
-        <section th:fragment="listadoServicios" id="servicios">
+        <!-- 3 Sección principal para mostrar la informaccion de la entidad usuario -->
+        <section th:fragment="listadoUsuarios" id="usuarios">
             <div class="container">
                 <div class="row">
                     <div class="col-md-9">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Listado de Servicios</h4>
-                            </div>
-                            <div th:if="${servicios != null and !servicios.empty}">
+                                <h4>Listado de Usuarios</h4></div>
+                            <div th:if="${usuarios != null and !usuarios.empty}">
                                 <table class="table table-striped table-hover">
                                     <thead class="table-dark">
-                                        <tr>
-                                            <th></th>
-                                            <th>Nombre del Servicio</th>
-                                            <th>Precio</th>
-                                            <th>Descripcion</th>
-                                            <th>Activo</th>
-                                            <th></th>
-                                        </tr>
+                                        <tr><th>#</th>
+                                            <th>Username</th>
+                                            <th>Nombre</th>
+                                            <th>Apellidos</th>
+                                            <th>Imagen</th>
+                                            <th></th></tr>
                                     </thead>
                                     <tbody>
-                                        <tr th:each="servicio, contador : ${servicios}">
+                                        <tr th:each="usuario, contador : ${usuarios}">
                                             <td>[[${contador.count}]]</td>
-                                            <td>[[${servicio.nombre}]]</td>
-                                            <td>[[${servicio.precio}]]</td>
-                                            <td>[[${servicio.descripcion}]]</td>
-                                            <td th:text="${servicio.activo} ? 'Activo' : 'Inactivo'" />
-                                            <td>
-                                                <a th:href="@{/servicio/eliminar/}+${servicio.idServicio}"
+                                            <td>[[${usuario.username}]]</td>
+                                            <td>[[${usuario.nombre}]]</td>
+                                            <td>[[${usuario.apellidos}]]</td>
+                                            <td sec:authorize="hasRole('ROLE_ADMIN')">
+                                                <a th:href="@{/usuario/eliminar/}+${usuario.idUsuario}"
                                                    class="btn btn-danger">
-                                                    <i class="fas fa-trash"></i> Eliminar
-                                                </a>
-                                                <a th:href="@{/servicio/modificar/}+${servicio.idServicio}"
+                                                    <i class="fas fa-trash"></i> Eliminar</a>
+                                                <a th:href="@{/usuario/modificar/}+${usuario.idUsuario}"
                                                    class="btn btn-success">
-                                                    <i class="fas fa-pencil"></i> Actualizar
-                                                </a>
-                                            </td>
-                                        </tr>
+                                                    <i class="fas fa-pencil"></i> Actualizar </a></td></tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div class="text-center p-2" th:if="${servicios == null or servicios.empty}">
-                                <span>Lista Vacia</span>
+                            <div class="text-center p-2" th:if="${usuarios == null or usuarios.empty}">
+                                <span>[[#{lista.vacia}]]</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="card text-center bg-info text-white mb-3">
+                        <div class="card text-center bg-success text-white mb-3">
                             <div class="card-body">
-                                <h3>Total de Servicios</h3>
-                                <h4 class="fs-2"><i class="fa-solid fa-droplet"></i> Total de Servicios</h4>
+                                <h3>Total Usuarios</h3>
+                                <h4 class="fs-2"><i class="fas fa-users"></i> [[${totalUsuarios}]]</h4>
                             </div>
-                        </div>
+                        </div>                        
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- 4 Fragmento que se utiliza en la página modifca.html -->
-        <section th:fragment="editarServicio">
+        <section th:fragment="editarUsuario">
             <div class="row">
                 <div class="col-md-2"></div>
                 <div class="col-md-8">
                     <form method="POST"
-                          th:action="@{/servicio/guardar}" 
-                          th:object="${servicio}"
-                          class="was-validated"                          
+                          th:action="@{/usuario/guardar}" th:object="${usuario}"
+                          class="was-validated"
                           enctype="multipart/form-data">
-                        <input type="hidden" name="idServicio" th:field="*{idServicio}"/>
-                        <input type="hidden" name="rutaImagen" th:field="*{rutaImagen}"/>
-                        <section th:replace="~{servicio/fragmentos :: botonesEditar}"/>
+                        <input type="hidden" name="idUsuario" th:field="*{idUsuario}"/>
+                        <section th:replace="~{usuario/fragmentos :: botonesEditar}"/>
                         <div id=details>
                             <div class="container">
                                 <div class="row">
@@ -153,7 +154,6 @@
                                                 <h4>Actualizar</h4>
                                             </div>
                                             <div class="card-body">
-                                                <!-- Campos para editar servicio -->
                                                 <div class="mb-3">
                                                     <label for="nombre">Nombre</label>
                                                     <input type="text" class="form-control" 
@@ -161,38 +161,33 @@
                                                            required="true">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="precio">Precio</label>
-                                                    <input type="number" class="form-control" 
-                                                           name="precio" step="0.01" 
-                                                           th:field="*{precio}"
-                                                           required="true">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="descripcion">Descripcion</label>
+                                                    <label for="apellidos">Apellidos</label>
                                                     <input type="text" class="form-control" 
-                                                           name="descripcion" th:field="*{descripcion}"
+                                                           name="apellidos" th:field="*{apellidos}"
                                                            required="true">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="activo">Activo</label>
-                                                    <input class="form-check-input" 
-                                                           type="checkbox" 
-                                                           name="activo" 
-                                                           id="activo"
-                                                           th:field="*{activo}">
+                                                    <label for="email">Correo</label>
+                                                    <input type="email" class="form-control" 
+                                                           name="correo" th:field="*{correo}"
+                                                           required="true">
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="imagen">Ruta de Imagen</label>
+                                                    <label for="telefono">Telefono</label>
+                                                    <input type="tel" class="form-control" 
+                                                           name="telefono" th:field="*{telefono}">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="imagen">Imagen</label>
                                                     <input class="form-control" type="file" name="imagenFile"
                                                            onchange="readURL(this);" />
-                                                    <img id="blah" th:src="@{${servicio.rutaImagen}}" alt="your image" height="200"/>
+                                                    <img id="blah" th:src="@{${usuario.rutaImagen}}" alt="your image" height="200"/>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     </form>
                 </div>
             </div>
@@ -203,17 +198,17 @@
             <div class="container py-4 mb-4 bg-light">
                 <div class="row">
                     <div class="col-md-4 d-grid">
-                        <a th:href="@{/servicio/listado}" class="btn btn-primary">
+                        <a th:href="@{/usuario/listado}" class="btn btn-primary">
                             <i class="fas fa-arrow-left"></i> Regresar
                         </a>
                     </div>
-                    <div class="col-md-4 d-grid">                                
-                        <a th:href="@{/servicio/eliminar/}+${servicio.idServicio}"
+                    <div class="col-md-4 d-grid" sec:authorize="hasRole('ROLE_ADMIN')">                                
+                        <a th:href="@{/usuario/eliminar/}+${usuario.idUsuario}"
                            class="btn btn-danger">
                             <i class="fas fa-trash"></i> Eliminar
                         </a>
                     </div>
-                    <div class="col-md-4 d-grid">
+                    <div class="col-md-4 d-grid" sec:authorize="hasRole('ROLE_ADMIN')">
                         <button type="submit" class="btn btn-success">
                             <i class="fas fa-check"></i> Guardar
                         </button>

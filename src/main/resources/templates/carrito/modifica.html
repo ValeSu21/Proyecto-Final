@@ -8,10 +8,7 @@
     </head>
     <body>
         <header th:replace="~{layout/plantilla :: header}"/> 
-        <section th:replace="~{pruebas/servicios :: listadoServicios}"/>
-        <section th:replace="~{pruebas/oferta :: listadoOfertas}"/> 
-        <section th:replace="~{pruebas/fragmentos :: listadoProductos}"/> 
-        <section th:replace="~{carrito/fragmentos :: listadoCarrito}"/>
+        <section th:replace="~{carrito/fragmentos :: modificaItem}"/>
         <footer th:replace="~{layout/plantilla :: footer}"/>
     </body>
 </html>
